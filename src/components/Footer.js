@@ -43,15 +43,15 @@ export default function Footer() {
           ))}
         </div>
 
-        <div style={{ fontFamily:'var(--font-geist-mono,monospace)', fontSize:11, color:'#2a3a4a', textAlign:'center' }}>
-          Designed &amp; Built by <span style={{ color:'#3a5060' }}>Sudeep Ravichandran</span>
+        <div style={{ fontFamily:'var(--font-geist-mono,monospace)', fontSize:11, color:'#3f4a55', textAlign:'center' }}>
+          Designed &amp; Built by <span style={{ color:'#4c6a80' }}>Sudeep Ravichandran</span>
         </div>
 
-        <div style={{ fontFamily:'var(--font-geist-mono,monospace)', fontSize:10, color:'#1e2e3e', letterSpacing:'.1em' }}>
+        <div style={{ fontFamily:'var(--font-geist-mono,monospace)', fontSize:10, color:'#52575c', letterSpacing:'.1em' }}>
           Last updated: {lastUpdated}
         </div>
 
-        <div style={{ fontFamily:'var(--font-geist-mono,monospace)', fontSize:10, color:'#1e2e3e', letterSpacing:'.1em' }}>
+        <div style={{ fontFamily:'var(--font-geist-mono,monospace)', fontSize:10, color:'#4e5258', letterSpacing:'.1em' }}>
           © {year} — All rights reserved
         </div>
       </div>

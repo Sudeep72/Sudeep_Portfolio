@@ -1,5 +1,5 @@
 // No 'use client' needed — uses Date at render time (SSR is fine)
-const NAV_IDS = ['about','skills','experience','projects','research','contact']
+const NAV_IDS = ['about','skills','research','projects','experience','contact']
 
 export default function Footer() {
   const now = new Date()

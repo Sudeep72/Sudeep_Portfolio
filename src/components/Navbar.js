@@ -29,6 +29,8 @@ export default function Navbar() {
       })
       if (hit) setActive(hit.id)
     }
+
+    onScroll() // run once immediately on mount
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
@@ -175,7 +177,7 @@ export default function Navbar() {
         </button>
       </nav>
 
-      {/* Mobile menu — always mounted when open so exit animation plays */}
+      {/* Mobile menu */}
       {menuOpen && (
         <div style={{
           position:       'fixed',
@@ -187,7 +189,6 @@ export default function Navbar() {
           backdropFilter: 'blur(20px)',
           borderBottom:   '1px solid #1a2a3a',
           overflow:       'hidden',
-          // slide down on open, slide up on close
           animation:      closing
             ? 'menuSlideUp 0.28s ease forwards'
             : 'menuSlideDown 0.28s ease forwards',
@@ -208,7 +209,6 @@ export default function Navbar() {
                   textAlign:     'left',
                   padding:       '12px 0',
                   borderBottom:  '1px solid #0d1520',
-                  // stagger each item in
                   opacity:       0,
                   animation:     closing
                     ? `menuItemFadeOut 0.15s ease forwards`
@@ -223,16 +223,16 @@ export default function Navbar() {
               target="_blank"
               rel="noopener noreferrer"
               style={{
-                fontFamily:    '"JetBrains Mono",monospace',
-                fontSize:      12,
-                color:         '#00d4ff',
-                border:        '1px solid #00d4ff',
-                padding:       '10px 20px',
-                textDecoration:'none',
-                textAlign:     'center',
-                marginTop:     12,
-                opacity:       0,
-                animation:     closing
+                fontFamily:     '"JetBrains Mono",monospace',
+                fontSize:       12,
+                color:          '#00d4ff',
+                border:         '1px solid #00d4ff',
+                padding:        '10px 20px',
+                textDecoration: 'none',
+                textAlign:      'center',
+                marginTop:      12,
+                opacity:        0,
+                animation:      closing
                   ? `menuItemFadeOut 0.15s ease forwards`
                   : `menuItemFadeIn 0.25s ease ${NAV.length * 0.04}s forwards`,
               }}
@@ -245,12 +245,12 @@ export default function Navbar() {
 
       <style>{`
         @keyframes menuSlideDown {
-          from { max-height: 0;    opacity: 0; transform: translateY(-8px); }
-          to   { max-height: 600px; opacity: 1; transform: translateY(0);   }
+          from { max-height: 0;     opacity: 0; transform: translateY(-8px); }
+          to   { max-height: 600px; opacity: 1; transform: translateY(0);    }
         }
         @keyframes menuSlideUp {
-          from { max-height: 600px; opacity: 1; transform: translateY(0);   }
-          to   { max-height: 0;    opacity: 0; transform: translateY(-8px); }
+          from { max-height: 600px; opacity: 1; transform: translateY(0);    }
+          to   { max-height: 0;     opacity: 0; transform: translateY(-8px); }
         }
         @keyframes menuItemFadeIn {
           from { opacity: 0; transform: translateX(-10px); }

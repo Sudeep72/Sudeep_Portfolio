@@ -1,0 +1,192 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&display=swap');
+@import "tailwindcss";
+
+/* @tailwind base;
+@tailwind components;
+@tailwind utilities; */
+
+/* ── CSS variables ─────────────────────────────────── */
+:root {
+  --accent:   #00d4ff;
+  --accent2:  #00ff9d;
+  --bg:       #060a0f;
+  --panel:    #0d1520;
+  --border:   #1a2a3a;
+  --text:     #e2eef8;       /* brighter base text */
+  --muted:    #8ab0c4;       /* brighter muted */
+  --dim:      #5a7a8a;       /* brighter dim */
+  --orange:   #ff9a3c;
+
+  /* Geist font variables (injected by next/font) */
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+/* ── Reset & base ──────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html {
+  scroll-behavior: smooth;
+  scrollbar-width: thin;
+  scrollbar-color: var(--accent) var(--bg);
+}
+::-webkit-scrollbar       { width: 4px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 2px; }
+
+body {
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans), system-ui, sans-serif;
+  overflow-x: hidden;
+}
+
+::selection { background: rgba(0,212,255,.28); color: #fff; }
+
+/* ── Global background grid ────────────────────────── */
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background-image:
+    linear-gradient(rgba(0,212,255,.028) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,212,255,.028) 1px, transparent 1px);
+  background-size: 52px 52px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── Scan-line sweep ───────────────────────────────── */
+body::after {
+  content: '';
+  position: fixed;
+  top: -2px; left: 0;
+  width: 100%; height: 2px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  opacity: .35;
+  animation: scanSweep 8s linear infinite;
+  pointer-events: none;
+  z-index: 1;
+}
+@keyframes scanSweep {
+  0%   { top: -2px; }
+  100% { top: 100vh; }
+}
+
+/* ── Layout helpers ────────────────────────────────── */
+.section-wrap {
+  position: relative;
+  z-index: 10;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 100px 40px;
+}
+@media (max-width: 768px) {
+  .section-wrap { padding: 80px 24px; }
+}
+
+/* ── Cyberpunk panel ───────────────────────────────── */
+.cyber-panel {
+  background: rgba(13,21,32,.82);
+  border: 1px solid var(--border);
+  position: relative;
+  backdrop-filter: blur(12px);
+}
+.cyber-panel::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  opacity: .5;
+}
+
+/* ── Glow on hover ─────────────────────────────────── */
+.glow-hover { transition: border-color .25s, box-shadow .25s; }
+.glow-hover:hover {
+  border-color: rgba(0,212,255,.45) !important;
+  box-shadow: 0 0 22px rgba(0,212,255,.12), inset 0 0 18px rgba(0,212,255,.04);
+}
+
+/* ── Tech tag ──────────────────────────────────────── */
+.tech-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: .68rem;
+  padding: 3px 10px;
+  border: 1px solid rgba(0,212,255,.28);
+  color: var(--accent);
+  border-radius: 2px;
+  background: rgba(0,212,255,.05);
+  letter-spacing: .05em;
+  display: inline-block;
+}
+
+/* ── Section number heading ────────────────────────── */
+.section-num {
+  font-family: 'Orbitron', monospace;
+  color: var(--accent);
+  font-size: .82rem;
+  letter-spacing: .22em;
+  margin-bottom: 8px;
+}
+
+/* ── Neon glows ────────────────────────────────────── */
+.neon-cyan  { text-shadow: 0 0 12px var(--accent),  0 0 28px rgba(0,212,255,.35); }
+.neon-green { text-shadow: 0 0 12px var(--accent2), 0 0 28px rgba(0,255,157,.35); }
+
+/* ── Glitch on name ────────────────────────────────── */
+.glitch { position: relative; }
+.glitch::before,
+.glitch::after {
+  content: attr(data-text);
+  position: absolute; top: 0; left: 0;
+  width: 100%; height: 100%;
+}
+.glitch::before {
+  color: var(--accent2); opacity: .7;
+  clip-path: polygon(0 0,100% 0,100% 33%,0 33%);
+  animation: gTop 3.5s infinite;
+}
+.glitch::after {
+  color: #ff3860; opacity: .7;
+  clip-path: polygon(0 66%,100% 66%,100% 100%,0 100%);
+  animation: gBot 4.5s infinite;
+}
+@keyframes gTop {
+  0%,90%,100% { transform:translate(0); }
+  92% { transform:translate(-2px,-1px); }
+  94% { transform:translate(2px,1px); }
+  96% { transform:translate(-1px,0); }
+}
+@keyframes gBot {
+  0%,88%,100% { transform:translate(0); }
+  90% { transform:translate(2px,1px); }
+  92% { transform:translate(-2px,-1px); }
+  94% { transform:translate(1px,0); }
+}
+
+/* ── Cursor blink ──────────────────────────────────── */
+@keyframes blink {
+  0%,100% { opacity:1; }
+  50%     { opacity:0; }
+}
+.cursor-blink { animation: blink 1s step-end infinite; }
+
+/* ── Fade-up entry ─────────────────────────────────── */
+@keyframes fadeUp {
+  from { opacity:0; transform:translateY(20px); }
+  to   { opacity:1; transform:translateY(0); }
+}
+.fade-up { animation: fadeUp .65s ease forwards; }
+
+/* ── Pulse dot ─────────────────────────────────────── */
+@keyframes pulseDot {
+  0%,100% { opacity:1; transform:scale(1); }
+  50%     { opacity:.4; transform:scale(.85); }
+}
+.pulse-dot { animation: pulseDot 2s ease-in-out infinite; }
+
+/* ── Noise overlay ─────────────────────────────────── */
+.noise {
+  position: fixed; inset: 0;
+  pointer-events: none; z-index: 2; opacity: .022;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
